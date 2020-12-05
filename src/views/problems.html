@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathApp</title>
+
+     <!--BootsWatch-->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/pulse/bootstrap.min.css" integrity="sha384-L7+YG8QLqGvxQGffJ6utDKFwmGwtLcCjtwvonVZR/Ba2VzhpMwBz51GaXnUsuYbj" crossorigin="anonymous">
+
+     <!--Bootstrap-->
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ 
+     <!--Styles-->
+     <link rel="stylesheet" href="/public/styles.css">
+
+    <!--MathJax-->
+    <script>
+        MathJax = {
+          loader: {load: ['input/asciimath', 'output/chtml']}
+        }
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js">
+    </script>
+    <body>
+
+</head>
+
+
+
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">
+          <img src="/public/images/sigma.svg" id="logo" alt="">
+        </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse right" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home
+                  
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/upload">Upload
+                  
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/problems">Problems
+                    <span class="sr-only">(current)</span>
+                </a>
+              </li>
+            </ul>
+      </div>
+      </nav>
+    <br>
+    <div class="container p-4">
+        <div class="card-header">
+            <h3>Problems</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <select name="" class="form-control"id="cath">
+                    <option value="" disabled selected>Cathegory</option>
+                </select>
+            </div>
+            
+            <input id="getbtn" class="btn btn-primary btn-block"type="button" value="Get a random problem">
+        </div>
+    </div>
+    
+    <br>
+
+    <div id="math">
+    </div>
+    
+    <script>
+        var sel = document.getElementById('sel');
+        var btn = document.getElementById('getbtn');
+        var math = document.getElementById("math");
+
+        var options = ['complex', 'simple', 'algebra', 'trigonometry']
+
+        options.forEach(e=>{
+            var opt = document.createElement('option');
+            opt.text = e;
+            opt.value = e;
+            sel.appendChild(opt);
+        })
+        
+
+        btn.onclick = ()=>{
+
+            fetch('/api/problems/random/' + sel.value)
+            .then(res => res.json())
+            .then(data =>{
+                console.log(data);
+                math.innerHTML = data['problem'];
+                MathJax.typeset();
+            });
+
+            
+            
+        };
+        
+    
+    </script>
+
+    <style>
+        #Topics{
+            width: 150px;
+        }
+        #math{
+            font-size: 30px;
+        }
+    </style>
+</body>
+</html>
