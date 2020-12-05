@@ -49,9 +49,11 @@ router.get('/problems', (req, res)=>{
 
 //Get Cathegories available.
 router.get('/cathegories', (req, res)=>{
-    db.ref("cathegories").on("value", (ss)=>{
-        res.send(ss);
+    var caths = [];
+    db.ref('cathegories').orderByChild('cathegory').on("child_added", (ss)=>{
+        caths.push(ss.val());
     });
+    res.send(caths);
 });
 
 

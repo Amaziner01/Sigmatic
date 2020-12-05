@@ -59,7 +59,6 @@
                 <div class="form-group">
                     <select name="cathegory" id="cath" class="form-control" required>
                         <option value="" disabled selected>Cathegory</option>
-                        <option value="dd">dd</option>
                     </select>
                 </div>
                 <button id="submit" class="btn btn-primary btn-block">Submit</button>
@@ -71,10 +70,23 @@
 
     <!--FormCheck-->
     <script>
+
         window.onload = ()=>{
+            var cath = document.getElementById('cath');
+
             fetch('/api/cathegories')
-            .then(data => console.log(data.json()))
-            .then 
+            .then(res => res.json())
+            .then(data => {
+                data.forEach(e => {
+                    console
+                    var opt = document.createElement('OPTION');
+                    opt.appendChild(document.createTextNode(e['cathegory']));
+                    opt.value = e['cathegory'];
+                    
+
+                    cath.appendChild(opt);
+                });
+            });
         };
 
         function cath(){
