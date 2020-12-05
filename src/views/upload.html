@@ -15,6 +15,8 @@
 
     <!--Styles-->
     <link rel="stylesheet" href="/public/styles.css">
+
+    <link rel="icon" href="/public/images/sigma.svg">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -64,16 +66,30 @@
             </form>
         </div>
         <br>
-        <p>Can't find a proper cathegory? <a href="#">Add one here.</a></p>
+    <p>Can't find a proper cathegory? <a href="#" onclick="cath()">Add one here.</a></p>
     </div>
 
     <!--FormCheck-->
     <script>
-        var sub = document.getElementById('submit');
+        window.onload = ()=>{
+            fetch('/api/cathegories')
+            .then(data => console.log(data.json()))
+            .then 
+        };
 
-        document.addEventListener("", ()=>{
-            alert("Hello");
-        });
+        function cath(){
+
+            var val = prompt("Write a cathegory");
+            console.log(val);
+            if(val !== ""){
+                fetch('/api/new-cathegory', {
+                    headers: {'Content-Type': 'application/json'},
+                    method: 'post',
+                    body: JSON.stringify({cathegory: val})
+                })
+                .then((res) => console.log(res));
+            }
+        }
     </script>
 </body>
 </html>

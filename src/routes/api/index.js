@@ -10,6 +10,8 @@ fb.initializeApp({
 
 const db = fb.database();
 
+
+//Make JSON payload
 function newProblem(object){
     const problem = {
         problem: object.problem.trim().replace(' ', ''),
@@ -27,19 +29,29 @@ function newCathegory(object){
 //Send New problem to DB
 router.post('/new-problem', (req, res) =>{
     console.log(req.body);
-    db.ref("probs").push(newProblem(req.body));
-
+    db.ref("problems").push(newProblem(req.body));
     res.redirect('/upload');
 });
 
+//Send New Cathegories
 router.post('/new-cathegory', (req, res)=>{
-
+    console.log(req.body);
+    db.ref("cathegories").push(newCathegory(req.body));
+    res.redirect("/upload")
 });
 
+//Get problems avilable.
 router.get('/problems', (req, res)=>{
-    db.ref("probs").on("value", (ss)=>{
+    db.ref("problems").on("value", (ss)=>{
         res.send(ss);
-    })
+    });
+});
+
+//Get Cathegories available.
+router.get('/cathegories', (req, res)=>{
+    db.ref("cathegories").on("value", (ss)=>{
+        res.send(ss);
+    });
 });
 
 
