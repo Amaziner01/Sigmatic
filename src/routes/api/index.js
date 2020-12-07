@@ -5,7 +5,7 @@ const credential = require('../../../credentials/cred.json')
 //Initialize FireBase
 fb.initializeApp({
     credential: fb.credential.cert(credential),
-    databaseURL: "https://mathapp-a0cb2-default-rtdb.firebaseio.com/"
+    databaseURL: 'https://mathapp-a0cb2-default-rtdb.firebaseio.com/'
 });
 
 const db = fb.database();
@@ -29,28 +29,37 @@ function newCathegory(object){
 //Send New problem to DB
 router.post('/new-problem', (req, res) =>{
     console.log(req.body);
-    db.ref("problems").push(newProblem(req.body));
+    db.ref('problems').push(newProblem(req.body));
     res.redirect('/upload');
 });
 
 //Send New Cathegories
 router.post('/new-cathegory', (req, res)=>{
     console.log(req.body);
-    db.ref("cathegories").push(newCathegory(req.body));
-    res.redirect("/upload")
+    db.ref('cathegories').push(newCathegory(req.body));
+    res.redirect('/upload')
 });
 
-//Get problems avilable.
+//Get all problems avilable.
 router.get('/problems', (req, res)=>{
-    db.ref("problems").on("value", (ss)=>{
+    db.ref('problems').on('value', (ss)=>{
         res.send(ss);
     });
+});
+
+//Get all problems within cathegory 
+router.get('/problems/:cathegory', (req, res)=>{
+    var probs = [];
+    db.ref('problems').orderByChild('cathegory').equalTo(req.params.cathegory).on('child_added', (ss)=>{
+        probs.push(ss.val());
+    });
+    res.send(probs);
 });
 
 //Get Cathegories available.
 router.get('/cathegories', (req, res)=>{
     var caths = [];
-    db.ref('cathegories').orderByChild('cathegory').on("child_added", (ss)=>{
+    db.ref('cathegories').orderByChild('cathegory').on('child_added', (ss)=>{
         caths.push(ss.val());
     });
     res.send(caths);

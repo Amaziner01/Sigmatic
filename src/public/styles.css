@@ -4,20 +4,35 @@
     background-color: black;
   }
 
-  #logo{
+#logo{
 
-    width:2rem;
-    transform: rotate(-45deg);
-    padding: 5px 5px 5px 5px;
-    border: 2px solid black;
-    border-radius: 5px;
-    animation: normal rot 1s;
-    fill: white;
+  width:2rem;
+  transform: rotate(-45deg);
+  padding: 5px 5px 5px 5px;
+  border: 2px solid black;
+  border-radius: 5px;
+  animation: normal rot 1s;
+  fill: white;
 
+}
+@keyframes rot {
+  0%{
+    opacity: 0;
+    transform: scale(0.1) rotate(45deg);
   }
-  @keyframes rot {
-    0%{
-      opacity: 0;
-      transform: scale(0.1) rotate(45deg);
-    }
-  }
+}
+
+#prev{
+  width: 100%;
+  height: 150px;
+  border: 2px solid purple;
+  border-radius: 10px;
+}
+
+#equ{
+  margin: 0;
+  position: relative;
+  top: 35%;
+  font-size: 14pt;
+}
+

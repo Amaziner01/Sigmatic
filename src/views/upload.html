@@ -16,6 +16,17 @@
     <!--Styles-->
     <link rel="stylesheet" href="/public/styles.css">
 
+     <!--MathJax-->
+     <script>
+        MathJax = {
+          loader: {load: ['input/asciimath', 'output/chtml']}
+        }
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js">
+    </script>
+
     <link rel="icon" href="/public/images/sigma.svg">
 </head>
 <body>
@@ -56,52 +67,26 @@
                 <div class="form-group">
                     <input type="text" id="prob" name="problem" class="form-control" placeholder="Problem" required autofocus>
                 </div>
+                <div class="class-group">
+                    <p>Preview:</p>
+                    <div class="block" id="prev">
+                        <div id="equ" class="text-center"></div>
+                    </div>
+                </div>
+                <br>
                 <div class="form-group">
                     <select name="cathegory" id="cath" class="form-control" required>
                         <option value="" disabled selected>Cathegory</option>
                     </select>
                 </div>
+                
                 <button id="submit" class="btn btn-primary btn-block">Submit</button>
             </form>
         </div>
         <br>
-    <p>Can't find a proper cathegory? <a href="#" onclick="cath()">Add one here.</a></p>
+    <p>Can't find a proper cathegory? <a href="#" onclick="uploadCathegory()">Add one here.</a></p>
     </div>
 
-    <!--FormCheck-->
-    <script>
-
-        window.onload = ()=>{
-            var cath = document.getElementById('cath');
-
-            fetch('/api/cathegories')
-            .then(res => res.json())
-            .then(data => {
-                data.forEach(e => {
-                    console
-                    var opt = document.createElement('OPTION');
-                    opt.appendChild(document.createTextNode(e['cathegory']));
-                    opt.value = e['cathegory'];
-                    
-
-                    cath.appendChild(opt);
-                });
-            });
-        };
-
-        function cath(){
-
-            var val = prompt("Write a cathegory");
-            console.log(val);
-            if(val !== ""){
-                fetch('/api/new-cathegory', {
-                    headers: {'Content-Type': 'application/json'},
-                    method: 'post',
-                    body: JSON.stringify({cathegory: val})
-                })
-                .then((res) => console.log(res));
-            }
-        }
-    </script>
+    <script src="/public/main.js"></script>
 </body>
 </html>

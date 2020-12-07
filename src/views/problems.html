@@ -67,13 +67,15 @@
             <h3>Problems</h3>
         </div>
         <div class="card-body">
-            <div class="form-group">
-                <select name="" class="form-control"id="cath">
-                    <option value="" disabled selected>Cathegory</option>
-                </select>
-            </div>
-            
-            <input id="getbtn" class="btn btn-primary btn-block"type="button" value="Get a random problem">
+            <form action="">
+                <div class="form-group">
+                    <select name="cathegory" class="form-control" id="cath" required>
+                        <option value="" disabled selected>Cathegory</option>
+                    </select>
+                </div>
+                
+                <input id="getbtn" class="btn btn-primary btn-block"type="button" value="Get a random problem" onclick="GetProblem()">
+            </form>
         </div>
     </div>
     
@@ -82,37 +84,7 @@
     <div id="math">
     </div>
     
-    <script>
-        var sel = document.getElementById('sel');
-        var btn = document.getElementById('getbtn');
-        var math = document.getElementById("math");
-
-        var options = ['complex', 'simple', 'algebra', 'trigonometry']
-
-        options.forEach(e=>{
-            var opt = document.createElement('option');
-            opt.text = e;
-            opt.value = e;
-            sel.appendChild(opt);
-        })
-        
-
-        btn.onclick = ()=>{
-
-            fetch('/api/problems/random/' + sel.value)
-            .then(res => res.json())
-            .then(data =>{
-                console.log(data);
-                math.innerHTML = data['problem'];
-                MathJax.typeset();
-            });
-
-            
-            
-        };
-        
-    
-    </script>
+    <script src="/public/main.js"></script>
 
     <style>
         #Topics{
