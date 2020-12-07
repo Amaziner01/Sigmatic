@@ -3,27 +3,25 @@ var prev = document.getElementById('equ');
 var inp = document.getElementById('prob');
 var math = document.getElementById('math');
 
-//Load cathegories from API
-var c = ()=> fetch('/api/cathegories')
-.then(res => res.json())
-.then(data => {
-    data.forEach(e => {
-        //console
-        var opt = document.createElement('OPTION');
-        opt.appendChild(document.createTextNode(e['cathegory']));
-        opt.value = e['cathegory'];
-        
-
-        cath.appendChild(opt);
-        
-    });
-});
-
-
 
 //On load
 window.onload = ()=>{
-    
+
+    //Load cathegories from API
+    fetch('/api/cathegories')
+    .then(res => res.json())
+    .then(data => {
+        data.forEach(e => {
+            //console
+            var opt = document.createElement('OPTION');
+            opt.appendChild(document.createTextNode(e['cathegory']));
+            opt.value = e['cathegory'];
+            
+
+            cath.appendChild(opt);
+            
+        });
+    });
 
     //Listen input for preview
     inp.addEventListener('input', ()=>{
@@ -45,7 +43,8 @@ function uploadCathegory(){
             body: JSON.stringify({cathegory: val})
         })
         //.then((res) => console.log(res));
-        c();
+        alert("Cathegory submitted");
+        location.reload();
     }
 }
 

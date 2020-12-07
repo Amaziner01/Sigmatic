@@ -4,6 +4,7 @@ const credential = require('../../../credentials/cred.json')
 
 //Initialize FireBase
 fb.initializeApp({
+    //credential: fb.credential.cert(credential),
     credential: fb.credential.cert(credential),
     databaseURL: 'https://mathapp-a0cb2-default-rtdb.firebaseio.com/'
 });
