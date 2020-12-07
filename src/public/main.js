@@ -4,7 +4,7 @@ var inp = document.getElementById('prob');
 var math = document.getElementById('math');
 
 //Load cathegories from API
-fetch('/api/cathegories')
+var c = ()=> fetch('/api/cathegories')
 .then(res => res.json())
 .then(data => {
     data.forEach(e => {
@@ -45,7 +45,7 @@ function uploadCathegory(){
             body: JSON.stringify({cathegory: val})
         })
         //.then((res) => console.log(res));
-        location.reload();
+        c();
     }
 }
 
