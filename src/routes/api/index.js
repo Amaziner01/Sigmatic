@@ -10,6 +10,11 @@ fb.initializeApp({
 
 const db = fb.database();
 
+//Dummy requests
+db.ref('problems').on('value', (ss)=>{
+});
+db.ref('cathegories').on('value', (ss)=>{
+});
 
 //Make JSON payload
 function newProblem(object){
@@ -60,6 +65,7 @@ router.get('/problems/:cathegory', (req, res)=>{
 router.get('/cathegories', (req, res)=>{
     var caths = [];
     db.ref('cathegories').orderByChild('cathegory').on('child_added', (ss)=>{
+        //console.log(ss.val());
         caths.push(ss.val());
     });
     res.send(caths);
