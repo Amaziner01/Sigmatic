@@ -12,4 +12,4 @@ Sigmatic is a Mathematic problem retreiver you can use to practice and improve y
 - JavaScript
 - Bootstrap  
 
-To visualize the page, check this http://sigmatic.herokuapp.com/.
+To visualize the page, check ***http://sigmatic.herokuapp.com/***.
